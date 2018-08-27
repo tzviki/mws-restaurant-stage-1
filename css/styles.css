@@ -10,7 +10,9 @@ body,td,th,p{
 body {
 	background-color: #fdfdfd;
 	margin: 0;
-	position:relative;
+  position: relative;
+  max-width: 1100px;
+  margin: auto;
 }
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
@@ -38,6 +40,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 #footer {
   background-color: #444;
@@ -136,6 +140,10 @@ nav h1 a {
   margin: 0;
   padding: 30px 15px 60px;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 #restaurants-list li {
   background-color: #fff;
@@ -143,7 +151,7 @@ nav h1 a {
   font-family: Arial,sans-serif;
   margin: 15px;
   min-height: 380px;
-  padding: 0 30px 25px;
+  padding: 0 0px 25px;
   text-align: left;
   width: 270px;
 }

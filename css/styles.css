@@ -225,19 +225,11 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Details ====================== */
-.inside header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
+
 .inside #map-container {
   background: blue none repeat scroll 0 0;
-  height: 87%;
-  position: fixed;
-  right: 0;
-  top: 80px;
-  width: 50%;
+  height: 250px;
+  width: 100%;
 }
 .inside #map {
   background-color: #ccc;
@@ -260,11 +252,21 @@ nav h1 a {
   line-height: 1.1;
 }
 #restaurant-img {
-	width: 90%;
+  width: 90%;
+  margin: auto;
 }
 #restaurant-address {
   font-size: 12pt;
   margin: 10px 0px;
+}
+#hours-map-container {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding: 25px;
+}
+#restaurant-hours-container {
+  width: 100%;
 }
 #restaurant-cuisine {
   background-color: #333;
@@ -281,8 +283,7 @@ nav h1 a {
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
-  padding: 140px 40px 30px;
-  width: 50%;
+  width: 100%;
 }
 #reviews-container {
   padding: 30px 40px 80px;
@@ -300,7 +301,7 @@ nav h1 a {
 }
 #reviews-list li {
   background-color: #fff;
-    border: 2px solid #f3f3f3;
+  border: 2px solid #f3f3f3;
   display: block;
   list-style-type: none;
   margin: 0 0 30px;
@@ -314,4 +315,22 @@ nav h1 a {
 }
 #restaurant-hours td {
   color: #666;
+}
+
+@media only screen and (min-width: 0px) {
+  #hours-map-container {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 785px) {
+  #hours-map-container {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  #hours-map-container {
+    max-width: 300px;
+  }
 }

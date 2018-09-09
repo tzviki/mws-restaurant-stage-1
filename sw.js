@@ -1,7 +1,7 @@
 var cacheId = 'udct-rest-001';
-var cachesAdd = ['/', '/index.html', '/restaurant.html', '/css/styles.css',
-                 '/data/restaurants.json', '/js/dbhelper.js', '/js/main.js',
-                 '/js/restaurant_info.js'];
+var cachesAdd = ['/', 'index.html', 'restaurant.html', 'css/styles.css',
+                 'data/restaurants.json', 'js/dbhelper.js', 'js/main.js',
+                 'js/restaurant_info.js'];
 self.addEventListener('install', e => {
     e.waitUntil(
         caches.open(cacheId).then(c => {
@@ -16,7 +16,7 @@ self.addEventListener('install', e => {
 self.addEventListener('fetch', e => {
     let cacheRequest = e.request;
     let urlRequest = new URL(e.request.url);
-    if (e.request.url.includes('restaurant')) {
+    if (e.request.url.includes('restaurant.html')) {
         const urlCache = 'restaurant.html';
         cacheRequest = new Request(urlCache);
     }

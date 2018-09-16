@@ -1,3 +1,5 @@
+import idb from 'idb';
+
 var cacheId = 'udct-rest-001';
 var cachesAdd = ['/', 'index.html', 'restaurant.html', 'css/styles.css',
                  'data/restaurants.json', 'js/dbhelper.js', 'js/main.js',

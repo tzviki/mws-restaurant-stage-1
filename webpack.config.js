@@ -30,8 +30,15 @@ module.exports = {
       name: 'My Progressive Web App',
       short_name: 'MyPWA',
       description: 'My awesome Progressive Web App!',
-      background_color: '#ffffff',
+      background_color: '#ffa500',
+      theme_color: '#ffa',
       crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+      icons: [
+        {
+          src: path.resolve('img/icon.png'),
+          sizes: [64,192,512] // multiple sizes
+        }
+      ],
       fingerprints: false
     })
 ]

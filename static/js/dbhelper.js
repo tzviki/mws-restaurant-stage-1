@@ -21,6 +21,9 @@ class DBHelper {
       .then(response => {
         response.json().then(restaurants => {
           callback(null, restaurants);
+        })
+        .catch(error => {
+          callback(`fetch fail: ${error}`, null);
         });
       })
       .catch(error => {

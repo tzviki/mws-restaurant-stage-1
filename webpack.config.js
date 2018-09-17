@@ -27,9 +27,9 @@ module.exports = {
         { from: 'static' }
     ]),
     new WebpackPwaManifest({
-      name: 'My Progressive Web App',
-      short_name: 'MyPWA',
-      description: 'My awesome Progressive Web App!',
+      name: 'Restaurant Reviews',
+      short_name: 'Reviews',
+      description: 'Restaurants listing and reviews',
       background_color: '#ffa500',
       theme_color: '#ffa',
       crossorigin: 'use-credentials', //can be null, use-credentials or anonymous

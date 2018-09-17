@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest')
  
 module.exports = {
   entry: {
@@ -24,6 +25,14 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
         { from: 'static' }
-    ])
+    ]),
+    new WebpackPwaManifest({
+      name: 'My Progressive Web App',
+      short_name: 'MyPWA',
+      description: 'My awesome Progressive Web App!',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+      fingerprints: false
+    })
 ]
 };

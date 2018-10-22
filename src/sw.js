@@ -11,6 +11,7 @@ const dbPromise = idb.open('tw-restaurant', 1, upgradeDb => {
         case 1:
         {
             const reviewsStore = upgradeDb.createObjectStore("reviews", {keyPath: "id"});
+            reviewsStore.createIndex('restaurant', 'restaurant');
             upgradeDb.createObjectStore("queue", {
             keyPath: "id",
             autoIncrement: true
@@ -68,7 +69,7 @@ self.addEventListener('fetch', e => {
         );
 
     //handle HTML responses
-    } else {
+    } else if (e.request.method === 'GET') {
         if (e.request.url.includes('restaurant.html')) {
             const urlCache = 'restaurant.html';
             cacheRequest = new Request(urlCache);

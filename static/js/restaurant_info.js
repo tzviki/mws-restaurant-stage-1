@@ -99,6 +99,12 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
+  if (restaurant.is_favorite) {
+    document.querySelector('#thumbs-up').style.display = 'block';
+  } else {
+    document.querySelector('#thumbs-down').style.display = 'block';
+  }
+
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();

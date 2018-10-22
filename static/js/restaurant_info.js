@@ -94,7 +94,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image2x = `${imageFile}_2x${imageType}`;
   image.src = image1x;
   image.srcset = `${image1x} 600w, ${image2x} 1200w`;
-  image.alt = restaurant.name;
+  image.alt = `Photo of ${restaurant.name} restaurant`;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;

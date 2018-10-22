@@ -166,7 +166,7 @@ createRestaurantHTML = (restaurant) => {
   const image2x = `${imageFile}_2x${imageType}`;
   image.src = image1x;
   image.srcset = `${image1x} 400w, ${image2x} 800w`;
-  image.alt = restaurant.name;
+  image.alt = `Photo of ${restaurant.name} restaurant`;
   li.append(image);
 
   const textDiv = document.createElement('div');

@@ -200,34 +200,5 @@ class DBHelper {
       animation: google.maps.Animation.DROP}
     );
     return marker;
-  } */
-  static saveNewReview(review) {
-    DBHelper.addReviewToDBCache(review);
-    data = {
-      url: this.REVIEWS_URL,
-      method: 'POST',
-      data: review
-    };
-    DBHelper.addReviewToServer(data);
-  }
-
-  static addReviewToDBCache(review) {
-    var request = window.indexedDB.open('tw-restaurant', 1);
-    request.onsuccess = function(event) {
-      var db = event.target.result;
-      var objectStore = db.transaction(["reviews"], "readwrite").objectStore("reviews");
-      objectStore.put({
-        id: Date.now(),
-        restaurant: review.restaurant,
-        data: review
-      });
-    };   
-  }
-
-  static addReviewToServer(data) {
-    fetch(data.url, {method: data.method, body: data.data})
-      .then(response => {
-        console.log(response);
-      })
-  }
+  } */  
 }

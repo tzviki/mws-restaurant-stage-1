@@ -71,7 +71,7 @@ collectAndSubmitData = () => {
     rating: document.querySelector('#review-rating').value,
     comment: document.querySelector('#review-experience').value
   };
-  DBHelper.saveNewReview(data);
+  QueueHelper.saveNewReview(data);
   // const destination = DBHelper.urlForRestaurant(self.restaurant);
   // window.location = destination;
 }

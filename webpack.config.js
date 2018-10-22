@@ -5,7 +5,8 @@ const WebpackPwaManifest = require('webpack-pwa-manifest')
 module.exports = {
   entry: {
       register_sw: './src/register_sw.js',
-      sw: './src/sw.js'
+      sw: './src/sw.js',
+      'js/queueHelper': './src/queueHelper.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

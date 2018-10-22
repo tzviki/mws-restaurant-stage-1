@@ -34,7 +34,10 @@ class QueueHelper {
                 "comments": review.comment
           }
         };
-        QueueHelper.addReviewToServer(data);
+        QueueHelper.addReviewToQueue(data)
+        .then(() => {
+            QueueHelper.sendQueueToServer();
+        });
       }
     
       static addReviewToDBCache(review) {
@@ -47,16 +50,38 @@ class QueueHelper {
                 data: review
             });
             return transaction.complete;
-        });        
-      }
-    
-      static addReviewToServer(data) {
-        fetch(data.url, {method: data.method, body: JSON.stringify(data.data)})
-          .then(response => {
-            console.log(response);
-          })
+        });
       }
 
+      static addReviewToQueue(data) {
+        return reviewDbPromise.then(db => {
+            const transaction = db.transaction('queue', 'readwrite');
+            const store = transaction.objectStore('queue');
+            store.put({                
+                data: data
+            });
+            return transaction.complete;
+        });
+      }
+    
+      static sendQueueToServer() {
+        reviewDbPromise.then(db => {
+            const transaction = db.transaction('queue','readwrite');
+            transaction.objectStore('queue').openCursor().then(c => {
+                var data = c.value.data;
+                QueueHelper.postToDB(data).then(c.delete().then(() => {
+                    console.log('deleted');
+                }));
+            });
+        });
+
+      }
+      static postToDB(data) {
+        return fetch(data.url, {method: data.method, body: JSON.stringify(data.data)})
+        .then(response => {
+          console.log(response);
+        });
+      }
 }
 
 window.QueueHelper = QueueHelper;

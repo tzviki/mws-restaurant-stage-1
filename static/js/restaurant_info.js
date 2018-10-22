@@ -104,7 +104,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  fillReviewsHTML();
+  fetchReviews();
 };
 
 /**
@@ -130,11 +130,21 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+
+fillReviewsHTML = (reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
+
+  const btn = document.createElement('button');
+  btn.innerHTML = 'Add Review';
+  btn.setAttribute('aria-label', `Add Review`);
+  btn.onclick = function () {
+    const destination = DBHelper.urlForReview(self.restaurant);
+    window.location = destination;
+  };
+  container.appendChild(btn);
 
   if (!reviews) {
     const noReviews = document.createElement('p');
@@ -148,6 +158,10 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   });
   container.appendChild(ul);
 };
+
+fetchReviews = (id = self.restaurant.id) => {
+  DBHelper.fetchReviewsById(id, fillReviewsHTML);    
+}
 
 /**
  * Create review HTML and add it to the webpage.

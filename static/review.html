@@ -34,26 +34,28 @@
     <!-- Beginning restaurant -->
     <section id="restaurant-container">
       <h2 id="restaurant-name"></h2>
-      <img id="restaurant-img">
-      <p id="restaurant-cuisine" aria-label="Cuisine"></p>
-      <p id="restaurant-address" aria-label="Address"></p>
-      <div id="hours-map-container">
-        <section id="restaurant-hours-container">
-          <table id="restaurant-hours" aria-label="Opening hours"></table>
-        </section>
-        
-        <!-- Beginning map -->
-      <section id="map-container" aria-labelledby="map-label">
-          <div id="map-label" class="aria-labels">Restaurant map</div>
-          <div id="map" aria-label="location" role="application"s></div>
-        </section>
-        <!-- End map -->
-      </div>
+      <img id="restaurant-img">      
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
     <section id="reviews-container">
-      <ul id="reviews-list"></ul>      
+      <form onsubmit="collectAndSubmitData(); return false;">
+        Name:
+        <input type="text" id="review-name">
+        Rating:
+        <select id="review-rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        Share your experience:
+        <textarea rows="4" cols="50" id="review-experience">
+          
+        </textarea>
+        <button type="submit">save</button>
+      </form>
     </section>
     <!-- End reviews -->
   </main>
@@ -69,7 +71,7 @@
   <!-- Database helpers -->
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
-  <script type="text/javascript" src="js/restaurant_info.js"></script>
+  <script type="text/javascript" src="js/review.js"></script>
   <!-- Google Maps -->
  <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script> -->
   <!-- End scripts -->

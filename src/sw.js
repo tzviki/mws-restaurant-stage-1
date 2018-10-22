@@ -8,6 +8,14 @@ const dbPromise = idb.open('tw-restaurant', 1, upgradeDb => {
     switch (upgradeDb.oldVersion) {
         case 0:
           upgradeDb.createObjectStore('restaurant', {keyPath: 'id'});
+        case 1:
+        {
+            const reviewsStore = upgradeDb.createObjectStore("reviews", {keyPath: "id"});
+            upgradeDb.createObjectStore("queue", {
+            keyPath: "id",
+            autoIncrement: true
+            });
+        }
     }
 });
 

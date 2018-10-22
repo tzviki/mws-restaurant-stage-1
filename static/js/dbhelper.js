@@ -12,6 +12,11 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
+  static get REVIEWS_URL() {
+    const port = 1337; // Change this to your server port
+    return `http://localhost:${port}/reviews`;
+  }
+
   /**
    * Fetch all restaurants.
    */
@@ -44,6 +49,19 @@ class DBHelper {
         }
       }
     }, id);
+  }
+
+  static fetchReviewsById(id, callback) {
+    const url = `${DBHelper.REVIEWS_URL}/?restaurant_id=${id}`;
+    fetch(url, {method: 'GET'})
+      .then(response => {
+        response.json().then(reviews => {
+          callback(reviews);
+        });
+      })
+      .catch(error => {
+        callback(`fetch fail: ${error}`, null);
+      });
   }
 
   /**
@@ -142,6 +160,10 @@ class DBHelper {
     return (`./restaurant.html?id=${restaurant.id}`);
   }
 
+  static urlForReview(restaurant) {
+    return (`./review.html?id=${restaurant.id}`);
+  }
+
   /**
    * Restaurant image URL.
    */
@@ -176,6 +198,16 @@ class DBHelper {
     );
     return marker;
   } */
+  static saveNewReview(review) {
+    const url = DBHelper.REVIEWS_URL;
+    const method = 'post';
+    DBHelper.addReviewToDBCache(review);
+    //post to queue
+  }
+
+  static addReviewToDBCache(review) {
+    console.log(review);
+
+  }
 
 }
-

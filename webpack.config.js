@@ -22,6 +22,9 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    contentBase: './dist'
+  },
   plugins: [
     new CopyWebpackPlugin([
         { from: 'static' }

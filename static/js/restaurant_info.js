@@ -105,6 +105,19 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     document.querySelector('#thumbs-down').style.display = 'block';
   }
 
+  document.querySelector('#toggle-favorite').addEventListener('click', function() {
+    if (restaurant.is_favorite) { //toggle off
+      restaurant.is_favorite = false;
+      document.querySelector('#thumbs-up').style.display = 'none';
+      document.querySelector('#thumbs-down').style.display = 'block';
+    } else {
+      restaurant.is_favorite = true;
+      document.querySelector('#thumbs-up').style.display = 'block';
+      document.querySelector('#thumbs-down').style.display = 'none';
+    }
+    QueueHelper.submitFavoriteChange(restaurant.id, restaurant.is_favorite);
+  })
+
   // fill operating hours
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();

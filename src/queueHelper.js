@@ -33,7 +33,19 @@ class QueueHelper {
                 "rating": review.rating,
                 "comments": review.comment
           }
+        };        
+        QueueHelper.addReviewToQueue(data)
+        .then(() => {
+            QueueHelper.sendQueueToServer();
+        });
+      }
+
+      static submitFavoriteChange(id, isFavorite) {
+        var data = {
+            url: `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${isFavorite.toString()}`,
+            method: 'PUT',
         };
+        //update restarant cache
         QueueHelper.addReviewToQueue(data)
         .then(() => {
             QueueHelper.sendQueueToServer();

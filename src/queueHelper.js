@@ -36,7 +36,9 @@ class QueueHelper {
         };        
         QueueHelper.addReviewToQueue(data)
         .then(() => {
-            QueueHelper.sendQueueToServer();
+            QueueHelper.sendQueueToServer().then(() => {
+                window.location = `./restaurant.html?id=${data.data.restaurant_id}`;
+            });            
         });
       }
 
@@ -115,7 +117,7 @@ class QueueHelper {
       }
     
       static sendQueueToServer() {
-        reviewDbPromise.then(db => {
+        return reviewDbPromise.then(db => {
             const transaction = db.transaction('queue','readwrite');
             transaction.objectStore('queue').openCursor().then(c => {
                 var data = c.value.data;

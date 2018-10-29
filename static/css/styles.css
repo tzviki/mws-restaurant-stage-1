@@ -217,7 +217,7 @@ nav h2 a, nav h1 a {
   padding-bottom: 2px;
   font-size: 11pt;
 }
-#restaurants-list li button, #reviews-container button {
+#restaurants-list li button, #reviews-container #review-btn {
   background-color: #804F16;
   border-bottom: 3px solid #eee;
   color: #fff;
@@ -227,6 +227,7 @@ nav h2 a, nav h1 a {
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+  float: right;
 }
 
 /* ====================== Restaurant Details ====================== */
@@ -305,9 +306,6 @@ nav h2 a, nav h1 a {
   letter-spacing: -1px;
   padding-bottom: 1pt;
   display: inline;
-}
-#reviews-container button {
-  float: right;
 }
 #reviews-container form {
   display: grid;

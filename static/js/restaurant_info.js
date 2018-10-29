@@ -160,6 +160,7 @@ fillReviewsHTML = (reviews) => {
 
   const btn = document.createElement('button');
   btn.innerHTML = 'Add Review';
+  btn.id = 'review-btn'
   btn.setAttribute('aria-label', `Add Review`);
   btn.onclick = function () {
     const destination = DBHelper.urlForReview(self.restaurant);

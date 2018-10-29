@@ -36,27 +36,41 @@ self.addEventListener('fetch', e => {
     let urlRequest = new URL(e.request.url);
 
     //Handle db responses
-    if (urlRequest.pathname.startsWith('/restaurants') && e.request.method == 'GET') {
+    if ((urlRequest.pathname.startsWith('/restaurants') || 
+    urlRequest.pathname.startsWith('/reviews')) && e.request.method == 'GET') {
         const pathname = urlRequest.pathname;
-        const urlParam = pathname.replace('/restaurants', '');
+        var isReview = urlRequest.pathname.startsWith('/reviews');
+        const urlParam = isReview ? urlRequest.search.replace('?restaurant_id=','') : pathname.replace('/restaurants', '');
         const id = urlParam ? urlParam.replace('/','') : '-1';
         e.respondWith(
             dbPromise.then(db => {
-                return db.transaction('restaurant').objectStore('restaurant').get(id);
+                return isReview ? db.transaction('reviews').objectStore('reviews').get(id) : 
+                db.transaction('restaurant').objectStore('restaurant').get(id);
             }).then(data => {
                 return(
                     (data && data.data) || 
                     fetch(e.request)
                         .then(response => response.json())
                         .then(jsonResponse => {
-                            return dbPromise.then(db => {
-                                const transaction = db.transaction('restaurant', 'readwrite');
-                                transaction.objectStore('restaurant').put({
-                                    id: id,
-                                    data: jsonResponse
+                            if (isReview) {
+                                return dbPromise.then(db => {
+                                    const transaction = db.transaction('reviews', 'readwrite');
+                                    transaction.objectStore('reviews').put({
+                                        id: id,
+                                        data: jsonResponse
+                                    });
+                                    return jsonResponse;
                                 });
-                                return jsonResponse;
-                            });
+                            } else {
+                                return dbPromise.then(db => {
+                                    const transaction = db.transaction('restaurant', 'readwrite');
+                                    transaction.objectStore('restaurant').put({
+                                        id: id,
+                                        data: jsonResponse
+                                    });
+                                    return jsonResponse;
+                                });
+                            }
                         })
                 );
             })

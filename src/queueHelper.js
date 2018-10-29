@@ -74,11 +74,11 @@ class QueueHelper {
                     return;
                 }
                 const restaurant = r.data.filter(a => a.id == id.toString());
-                if (restaurant) {
-                    restaurant['is_favoreite'] = isFavorite.toString();
+                if (restaurant.length && restaurant[0]) {
+                    restaurant[0].is_favorite = isFavorite.toString();
                 }
                 var restaurants = r.data.filter(a => a.id != id.toString());
-                restaurants.push(restaurant);
+                restaurants.push(restaurant[0]);
 
                 reviewDbPromise.then(db => {
                     const transaction = db.transaction("restaurant", "readwrite");

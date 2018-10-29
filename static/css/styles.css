@@ -217,7 +217,7 @@ nav h2 a, nav h1 a {
   padding-bottom: 2px;
   font-size: 11pt;
 }
-#restaurants-list li button, #reviews-container #review-btn {
+#restaurants-list li button, #reviews-container #review-btn, #submit-review {
   background-color: #804F16;
   border-bottom: 3px solid #eee;
   color: #fff;

@@ -28,10 +28,10 @@ class QueueHelper {
           url: this.REVIEWS_URL,
           method: 'POST',
           data: {
-                "restaurant_id": review.restaurant,
+                "restaurant_id": review.restaurant_id,
                 "name": review.name,
                 "rating": review.rating,
-                "comments": review.comment
+                "comments": review.comments
           }
         };        
         QueueHelper.addReviewToQueue(data)
@@ -57,6 +57,7 @@ class QueueHelper {
       static updateRestaurntCache(id, isFavorite) {
         reviewDbPromise.then(db => {
             const transaction = db.transaction('restaurant', 'readwrite');
+            //Update the restaurant
             const record = transaction.objectStore('restaurant').get(id.toString()).then(r => {                
                 if (!r) {
                     return;
@@ -70,6 +71,8 @@ class QueueHelper {
                     return transaction.complete;
                   });
             });
+
+            //Update the restaurants collection
             const transaction2 = db.transaction('restaurant', 'readwrite');
             const record2 = transaction2.objectStore('restaurant').get('-1').then(r => {                
                 if (!r) {
@@ -95,13 +98,19 @@ class QueueHelper {
       static addReviewToDBCache(review) {
         reviewDbPromise.then(db => {
             const transaction = db.transaction('reviews', 'readwrite');
-            const store = transaction.objectStore('reviews');
-            store.put({
-                id: Date.now(),
-                restaurant: review.restaurant,
-                data: review
+            const record = transaction.objectStore('reviews').get(review.restaurant_id.toString()).then(r => {
+                if (!r) {
+                    return transaction.complete;
+                } else {
+                    r.data.push(review);
+                    reviewDbPromise.then(db => {
+                        const transaction = db.transaction("reviews", "readwrite");
+                        transaction.objectStore("reviews")
+                          .put({id: r.id, data: r});
+                        return transaction.complete;
+                      });
+                }
             });
-            return transaction.complete;
         });
       }
 

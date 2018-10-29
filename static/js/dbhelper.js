@@ -59,7 +59,7 @@ class DBHelper {
     fetch(url, {method: 'GET'})
       .then(response => {
         response.json().then(reviews => {
-          callback(reviews);
+          callback(reviews.data || reviews);
         });
       })
       .catch(error => {

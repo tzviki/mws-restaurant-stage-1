@@ -66,10 +66,10 @@ getParameterByName = (name, url) => {
 
 collectAndSubmitData = () => {
   data = {
-    restaurant: self.restaurant.id,
+    restaurant_id: self.restaurant.id,
     name: document.querySelector('#review-name').value,
     rating: document.querySelector('#review-rating').value,
-    comment: document.querySelector('#review-experience').value
+    comments: document.querySelector('#review-experience').value
   };
   QueueHelper.saveNewReview(data);
 }

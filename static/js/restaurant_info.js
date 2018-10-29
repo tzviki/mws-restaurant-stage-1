@@ -99,19 +99,21 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
-  if (restaurant.is_favorite) {
+  if (restaurant.is_favorite == 'true') {
     document.querySelector('#thumbs-up').style.display = 'block';
+    document.querySelector('#thumbs-down').style.display = 'none';
   } else {
     document.querySelector('#thumbs-down').style.display = 'block';
+    document.querySelector('#thumbs-up').style.display = 'none';
   }
 
   document.querySelector('#toggle-favorite').addEventListener('click', function() {
-    if (restaurant.is_favorite) { //toggle off
-      restaurant.is_favorite = false;
+    if (restaurant.is_favorite == 'true') { //toggle off
+      restaurant.is_favorite = 'false';
       document.querySelector('#thumbs-up').style.display = 'none';
       document.querySelector('#thumbs-down').style.display = 'block';
     } else {
-      restaurant.is_favorite = true;
+      restaurant.is_favorite = 'true';
       document.querySelector('#thumbs-up').style.display = 'block';
       document.querySelector('#thumbs-down').style.display = 'none';
     }

@@ -45,10 +45,48 @@ class QueueHelper {
             url: `${DBHelper.DATABASE_URL}/${id}/?is_favorite=${isFavorite.toString()}`,
             method: 'PUT',
         };
-        //update restarant cache
+        QueueHelper.updateRestaurntCache(id, isFavorite);
         QueueHelper.addReviewToQueue(data)
         .then(() => {
             QueueHelper.sendQueueToServer();
+        });
+      }
+
+      static updateRestaurntCache(id, isFavorite) {
+        reviewDbPromise.then(db => {
+            const transaction = db.transaction('restaurant', 'readwrite');
+            const record = transaction.objectStore('restaurant').get(id.toString()).then(r => {                
+                if (!r) {
+                    return;
+                }
+                const restaurant = r.data;
+                r.data['is_favorite'] = isFavorite.toString();
+                reviewDbPromise.then(db => {
+                    const transaction = db.transaction("restaurant", "readwrite");
+                    transaction.objectStore("restaurant")
+                      .put({id: id.toString(), data: restaurant});
+                    return transaction.complete;
+                  });
+            });
+            const transaction2 = db.transaction('restaurant', 'readwrite');
+            const record2 = transaction2.objectStore('restaurant').get('-1').then(r => {                
+                if (!r) {
+                    return;
+                }
+                const restaurant = r.data.filter(a => a.id == id.toString());
+                if (restaurant) {
+                    restaurant['is_favoreite'] = isFavorite.toString();
+                }
+                var restaurants = r.data.filter(a => a.id != id.toString());
+                restaurants.push(restaurant);
+
+                reviewDbPromise.then(db => {
+                    const transaction = db.transaction("restaurant", "readwrite");
+                    transaction.objectStore("restaurant")
+                      .put({id: '-1', data: restaurants});
+                    return transaction.complete;
+                  });
+            });
         });
       }
     

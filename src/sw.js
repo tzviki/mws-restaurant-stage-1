@@ -36,7 +36,7 @@ self.addEventListener('fetch', e => {
     let urlRequest = new URL(e.request.url);
 
     //Handle db responses
-    if (urlRequest.pathname.startsWith('/restaurants')) {
+    if (urlRequest.pathname.startsWith('/restaurants') && e.request.method == 'GET') {
         const pathname = urlRequest.pathname;
         const urlParam = pathname.replace('/restaurants', '');
         const id = urlParam ? urlParam.replace('/','') : '-1';
